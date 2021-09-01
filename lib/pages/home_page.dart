@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:radio_ai/models/radio.dart';
@@ -57,7 +58,46 @@ class _HomePageState extends State<HomePage> {
               itemBuilder: (context, index) {
                 final rad = radios[index];
 
-                return VxBox(child: ZStack([]))
+                return VxBox(
+                        child: ZStack([
+                  Positioned(
+                    top: 0.0,
+                    right: 0.0,
+                    child: VxBox(
+                            child:
+                                rad.category.text.uppercase.white.make().px32())
+                        .height(40)
+                        .black
+                        .alignCenter
+                        .withRounded(value: 10.0)
+                        .make(),
+                  ),
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: VStack(
+                      [
+                        rad.name.text.xl3.white.bold.make(),
+                        5.heightBox,
+                        rad.tagline.text.sm.white.semiBold.make()
+                      ],
+                      crossAlignment: CrossAxisAlignment.center,
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.center,
+                    child: VStack(
+                      [
+                        Icon(
+                          CupertinoIcons.play_circle,
+                          color: Colors.white,
+                        ),
+                        "Double tap to play".text.gray300.make()
+                      ],
+                      crossAlignment: CrossAxisAlignment.center,
+                    ),
+                  )
+                ]))
+                    .clip(Clip.antiAlias)
                     .bgImage(DecorationImage(
                         image: NetworkImage(rad.image),
                         fit: BoxFit.cover,
@@ -66,11 +106,19 @@ class _HomePageState extends State<HomePage> {
                     .border(color: Colors.black, width: 5.0)
                     .withRounded(value: 60)
                     .make()
-                    .p16()
-                    .centered();
-              })
+                    .p16();
+              }).centered(),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Icon(
+              CupertinoIcons.stop_circle,
+              size: 50.0,
+              color: Colors.white,
+            ),
+          ).pOnly(bottom: context.percentHeight * 12)
         ],
         fit: StackFit.expand,
+        clipBehavior: Clip.antiAlias,
       ),
     );
   }
