@@ -13,6 +13,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   late List<MyRadio> radios;
+
   @override
   void initState() {
     super.initState();
@@ -20,9 +21,10 @@ class _HomePageState extends State<HomePage> {
   }
 
   fetchRadios() async {
-    final radioJson = await rootBundle.loadString("radio.json");
+    final radioJson = await rootBundle.loadString("assets/files/radio.json");
     radios = MyRadioList.fromJson(radioJson).radios;
     print(radios);
+    setState(() {});
   }
 
   @override
@@ -47,8 +49,28 @@ class _HomePageState extends State<HomePage> {
                 .shimmer(primaryColor: Vx.purple300, secondaryColor: Vx.white),
             backgroundColor: Colors.transparent,
             elevation: 0.0,
-          )
+          ),
+          VxSwiper.builder(
+              itemCount: radios.length,
+              aspectRatio: 1.0,
+              enlargeCenterPage: true,
+              itemBuilder: (context, index) {
+                final rad = radios[index];
+
+                return VxBox(child: ZStack([]))
+                    .bgImage(DecorationImage(
+                        image: NetworkImage(rad.image),
+                        fit: BoxFit.cover,
+                        colorFilter: ColorFilter.mode(
+                            Colors.black.withOpacity(0.3), BlendMode.darken)))
+                    .border(color: Colors.black, width: 5.0)
+                    .withRounded(value: 60)
+                    .make()
+                    .p16()
+                    .centered();
+              })
         ],
+        fit: StackFit.expand,
       ),
     );
   }
