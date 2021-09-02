@@ -1,4 +1,3 @@
-import 'package:alan_voice/alan_voice.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +16,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   late List<MyRadio> radios;
   late MyRadio _selectedRadio;
-  late Color _selectedColor = AiColors.primaryColor1;
+  Color _selectedColor = AiColors.primaryColor1;
   bool _isPlaying = false;
 
   final AudioPlayer _audioPlayer = AudioPlayer();
@@ -25,8 +24,6 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-
-    setupAlan();
 
     fetchRadios();
 
@@ -38,12 +35,6 @@ class _HomePageState extends State<HomePage> {
 
       setState(() {});
     });
-  }
-
-  setupAlan() {
-    AlanVoice.addButton(
-        "d5c8522477ad07739544e5c14e8945f72e956eca572e1d8b807a3e2338fdd0dc/stage",
-        buttonAlign: AlanVoice.BUTTON_ALIGN_LEFT);
   }
 
   fetchRadios() async {
