@@ -40,6 +40,12 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  setupAlan() {
+    AlanVoice.addButton(
+        "d5c8522477ad07739544e5c14e8945f72e956eca572e1d8b807a3e2338fdd0dc/stage",
+        buttonAlign: AlanVoice.BUTTON_ALIGN_LEFT);
+  }
+
   fetchRadios() async {
     final radioJson = await rootBundle.loadString("assets/files/radio.json");
     radios = MyRadioList.fromJson(radioJson).radios;
